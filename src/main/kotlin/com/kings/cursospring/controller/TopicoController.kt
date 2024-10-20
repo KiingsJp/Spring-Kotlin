@@ -4,6 +4,9 @@ import com.kings.cursospring.dto.AtualizacaoTopicoForm
 import com.kings.cursospring.dto.NovoTopicoForm
 import com.kings.cursospring.dto.TopicoView
 import com.kings.cursospring.service.TopicoService
+import org.aspectj.apache.bcel.classfile.Module.Require
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import javax.transaction.Transactional
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,8 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
-    fun listar(): List<TopicoView> {
-        return service.listar()
+    fun listar(@RequestParam(required = false) nomeCurso: String?, paginacao: Pageable): Page<TopicoView> {
+        return service.listar(nomeCurso, paginacao)
     }
 
     @GetMapping("/{id}")

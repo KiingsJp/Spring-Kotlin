@@ -15,7 +15,7 @@ data class Topico(
     val curso: Curso,
 
     @ManyToOne
-    val autor: Usuario,
+    val usuario: Usuario,
 
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,

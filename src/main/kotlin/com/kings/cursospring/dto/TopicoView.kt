@@ -1,5 +1,6 @@
 package com.kings.cursospring.dto
 
+import com.kings.cursospring.model.Curso
 import com.kings.cursospring.model.StatusTopico
 import com.kings.cursospring.model.Usuario
 import java.time.LocalDateTime
@@ -10,5 +11,6 @@ data class TopicoView(
     val mensagem: String,
     val status: StatusTopico,
     val dataCriacao: LocalDateTime,
-    val usuario: Usuario
+    val usuario: Usuario,
+    val curso: Curso
 )

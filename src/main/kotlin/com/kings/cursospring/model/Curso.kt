@@ -6,5 +6,6 @@ import javax.persistence.*
 data class Curso(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    val curso: String
+    val nome: String,
+    val categoria: String
 )

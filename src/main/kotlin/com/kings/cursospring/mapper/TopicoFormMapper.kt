@@ -1,6 +1,5 @@
 package com.kings.cursospring.mapper
 
-
 import com.kings.cursospring.dto.NovoTopicoForm
 import com.kings.cursospring.model.Topico
 import com.kings.cursospring.service.CursoService
@@ -17,7 +16,7 @@ class TopicoFormMapper(
             titulo = t.titulo,
             mensagem = t.mensagem,
             curso = cursoService.getCursoID(t.idCurso),
-            autor = usuarioService.getUsuarioID(t.idUsuario)
+            usuario = usuarioService.getUsuarioID(t.idUsuario)
         )
     }
 }

@@ -7,6 +7,5 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        ddl-auto: create
         show_sql: true
         format_sql: true

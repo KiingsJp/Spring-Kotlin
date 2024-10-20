@@ -10,7 +10,7 @@ data class Resposta(
     val id: Long,
 
     @ManyToOne
-    val autor: Usuario,
+    val usuario: Usuario,
 
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     val mensagem: String,
