@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version> <!-- Atualize aqui -->
+		<version>2.4.4</version> <!-- Atualize aqui -->
 		<relativePath/>
 	</parent>
 
@@ -89,6 +89,8 @@
 					</args>
 					<compilerPlugins>
 						<plugin>spring</plugin>
+						<plugin>jpa</plugin>
+						<plugin>no-arg</plugin>
 					</compilerPlugins>
 				</configuration>
 
@@ -96,6 +98,11 @@
 					<dependency>
 						<groupId>org.jetbrains.kotlin</groupId>
 						<artifactId>kotlin-maven-allopen</artifactId>
+						<version>${kotlin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jetbrains.kotlin</groupId>
+						<artifactId>kotlin-maven-noarg</artifactId>
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>

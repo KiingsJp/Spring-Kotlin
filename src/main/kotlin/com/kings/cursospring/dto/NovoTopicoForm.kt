@@ -1,8 +1,8 @@
 package com.kings.cursospring.dto
 
-data class NovoTopicoDTO(
+data class NovoTopicoForm(
     val titulo: String,
     val mensagem: String,
-    val idUsuario: Long,
-    val idCurso: Long
+    val idCurso: Long,
+    val idUsuario: Long
 )
