@@ -1,0 +1,9 @@
+CREATE TABLE CURSO (
+    ID BIGINT NOT NULL,
+    NOME VARCHAR(100),
+    CATEGORIA VARCHAR(100),
+    PRIMARY KEY(ID)
+);
+
+INSERT INTO CURSO (ID, NOME, CATEGORIA) VALUES (1, 'Kotlin & Spring', 'Programação');
+INSERT INTO CURSO (id, NOME, CATEGORIA) VALUES (2, 'Banco de Dados', 'Programação');
