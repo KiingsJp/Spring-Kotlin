@@ -4,7 +4,8 @@ import com.kings.cursospring.dto.AtualizacaoTopicoForm
 import com.kings.cursospring.dto.NovoTopicoForm
 import com.kings.cursospring.dto.TopicoView
 import com.kings.cursospring.service.TopicoService
-import org.aspectj.apache.bcel.classfile.Module.Require
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
+    @Cacheable("topicos") // ADICIONA O RESULTADO EM CACHE, A SEGUNDA CHAMADA DELE NAO VAI BUSCAR NO BANCO E SIM NO CACHE
     fun listar(
         @RequestParam(required = false) nomeCurso: String?,
         @PageableDefault(size = 5, sort = ["dataCriacao"], direction = Sort.Direction.DESC) paginacao: Pageable
@@ -33,7 +35,8 @@ class TopicoController(private val service: TopicoService) {
     }
 
     @PostMapping
-    @Transactional
+    @Transactional // INDICA UMA TRANSACAO NO BANCO DE DADOS, UPDATE, DELETE, ETC
+    @CacheEvict(value = ["topicos"], allEntries = true) // LIMPA TODOS OS REGISTROS DO CACHE TOPICOS
     fun cadastrar(
         @RequestBody form: NovoTopicoForm,
         uriBuilder: UriComponentsBuilder
@@ -45,14 +48,16 @@ class TopicoController(private val service: TopicoService) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun atualizar(@RequestBody form: AtualizacaoTopicoForm): ResponseEntity<TopicoView> {
         val topicoView = service.atualizar(form)
         return ResponseEntity.ok(topicoView)
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT) // A RESPOSTA DA REQUISIÇÃO VAI SER NO_CONTENT
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun deletar(@PathVariable id: Long) {
         service.deletar(id)
     }
