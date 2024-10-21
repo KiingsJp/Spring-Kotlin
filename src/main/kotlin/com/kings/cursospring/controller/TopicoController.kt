@@ -61,4 +61,9 @@ class TopicoController(private val service: TopicoService) {
     fun deletar(@PathVariable id: Long) {
         service.deletar(id)
     }
+
+    @GetMapping("nao-respondido")
+    fun topicosNaoRespondidos(): List<TopicoView> {
+        return service.topicosNaoRespondidos()
+    }
 }
