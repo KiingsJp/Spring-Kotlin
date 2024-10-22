@@ -11,3 +11,6 @@ class CursoSpringApplication
 fun main(args: Array<String>) {
 	runApplication<CursoSpringApplication>(*args)
 }
+
+// BUILD JAR PELO TERMINAL: mvn package
+
