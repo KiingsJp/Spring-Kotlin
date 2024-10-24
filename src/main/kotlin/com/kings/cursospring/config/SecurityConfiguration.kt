@@ -18,6 +18,7 @@ class SecurityConfiguration(
     override fun configure(http: HttpSecurity?) {
         http?.
         authorizeRequests()?. // cuide da autorização das requisições
+        antMatchers("/topicos")?.hasAuthority("LEITURA_ESCRITA")?. // para acessar topicos, precisa ter a role LEITURA_ESCRITA
         anyRequest()?. // de qualquer requisição
         authenticated()?. // precisa ser autenticada
         and()?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)?. // define a politica de sessão, nesta deve ser passado todas as informações para o login

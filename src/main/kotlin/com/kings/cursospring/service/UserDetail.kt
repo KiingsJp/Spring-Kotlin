@@ -1,12 +1,11 @@
 package com.kings.cursospring.service
 
 import com.kings.cursospring.model.Usuario
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class UserDetail(private val usuario: Usuario) : UserDetails {
 
-    override fun getAuthorities() = null
+    override fun getAuthorities() = usuario.role
 
     override fun getPassword(): String = usuario.password
 
