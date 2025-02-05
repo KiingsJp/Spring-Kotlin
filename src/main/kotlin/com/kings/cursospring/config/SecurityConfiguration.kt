@@ -2,6 +2,7 @@ package com.kings.cursospring.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -13,17 +14,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
-    private val userDetailsService: UserDetailsService
+    private val userDetailsService: UserDetailsService,
+//    private val jwtUtil: JWTUtil
 ): WebSecurityConfigurerAdapter() {
+
     override fun configure(http: HttpSecurity?) {
         http?.
-        authorizeRequests()?. // cuide da autorização das requisições
-        antMatchers("/topicos")?.hasAuthority("LEITURA_ESCRITA")?. // para acessar topicos, precisa ter a role LEITURA_ESCRITA
-        anyRequest()?. // de qualquer requisição
-        authenticated()?. // precisa ser autenticada
-        and()?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)?. // define a politica de sessão, nesta deve ser passado todas as informações para o login
-        and()?.formLogin()?.disable()?. // disativa o login padrao do spring security
-        httpBasic() // utilize a autenticação httpBasic
+        csrf()?.disable()?.
+        authorizeRequests()?.
+        antMatchers(HttpMethod.POST, "/**")?.permitAll()?.
+        anyRequest()?.
+        authenticated()?.
+        and()
+        http?.httpBasic()
+        http?.sessionManagement()?.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // define a politica de sessão, nesta deve ser passado todas as informações para o login
+//      ?.formLogin()?.disable()?. // disativa o login padrao do spring security
+
+        //  Adicionamos os filtros de JWT
+//        http?.addFilterBefore(JWTLoginFilter(authManager = authenticationManager(), jwtUtil = jwtUtil), UsernamePasswordAuthenticationFilter::class.java)
+//        http?.addFilterBefore(JWTAuthenticationFilter(jwtUtil = jwtUtil), UsernamePasswordAuthenticationFilter::class.java)
     }
 
     @Bean
@@ -32,8 +41,6 @@ class SecurityConfiguration(
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.
-        userDetailsService(userDetailsService)?.
-        passwordEncoder(bCryptPasswordEncoder())
+        auth?.userDetailsService(userDetailsService)?.passwordEncoder(bCryptPasswordEncoder())
     }
 }
