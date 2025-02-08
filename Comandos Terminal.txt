@@ -1,0 +1,19 @@
+LIGAR O DOCKER CURSOSPRING NA PORTA 3080
+docker run -p 3080:8080 cursospring
+
+CRIAR IMAGEM DOCKER (confiurar o Dockerfile)
+docker build -t cursospring -f Dockerfile .
+
+ADICIONAR IMAGEM DO MYSQL
+docker pull mysql:9.1.0
+
+LIGAR E CONFIGURAR IMAGEM MYSQL
+docker run -d -p 3306:3306 --name mysql-container -e MYSQL_PASSWORD_ROOT=root -e MYSQL_PASSWORD=root mysql:9.1.0
+
+ENTRAR NO MYSQL
+docker exec -it mysql-container bash
+
+COLOCAR SENHA NO BASH PARA ACESSAR O BANCO
+mysql -u root -p
+{senha}
+

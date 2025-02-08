@@ -1,10 +1,10 @@
-CREATE TABLE CURSO (
-    ID BIGINT NOT NULL AUTO_INCREMENT,
-    NOME VARCHAR(100),
-    CATEGORIA VARCHAR(100),
-    PRIMARY KEY(ID)
+CREATE TABLE curso (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100),
+    categoria VARCHAR(100),
+    PRIMARY KEY(id)
 );
 
-INSERT INTO CURSO (ID, NOME, CATEGORIA) VALUES (1, 'Kotlin & Spring', 'Programação');
-INSERT INTO CURSO (id, NOME, CATEGORIA) VALUES (2, 'Banco de Dados', 'Programação');
-INSERT INTO CURSO (id, NOME, CATEGORIA) VALUES (3, 'Java', 'Programação');
+INSERT INTO curso (id, nome, categoria) VALUES (1, 'Kotlin & Spring', 'Programação');
+INSERT INTO curso (id, nome, categoria) VALUES (2, 'Banco de Dados', 'Programação');
+INSERT INTO curso (id, NOME, categoria) VALUES (3, 'Java', 'Programação');
