@@ -23,6 +23,8 @@ class SecurityConfiguration(
         csrf()?.disable()?.
         authorizeRequests()?.
         antMatchers(HttpMethod.POST, "/**")?.permitAll()?.
+        antMatchers(HttpMethod.GET, "/swagger-ui/*")?.permitAll()?.
+        antMatchers(HttpMethod.GET, "/v3/api-docs/**")?.permitAll()?.
         anyRequest()?.
         authenticated()?.
         and()

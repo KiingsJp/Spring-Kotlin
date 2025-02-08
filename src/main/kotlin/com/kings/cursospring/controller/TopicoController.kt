@@ -4,6 +4,7 @@ import com.kings.cursospring.dto.AtualizacaoTopicoForm
 import com.kings.cursospring.dto.NovoTopicoForm
 import com.kings.cursospring.dto.TopicoView
 import com.kings.cursospring.service.TopicoService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
+@SecurityRequirement(name = "basicAuth")
 @RequestMapping("/topicos")
 class TopicoController(private val service: TopicoService) {
 
