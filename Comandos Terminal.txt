@@ -17,3 +17,6 @@ COLOCAR SENHA NO BASH PARA ACESSAR O BANCO
 mysql -u root -p
 {senha}
 
+LIGAR CONTAINER DEPOIS DE CRIADO
+docker start mysql-container
+

@@ -7,6 +7,8 @@ import com.kings.cursospring.exception.NotFoundException
 import com.kings.cursospring.mapper.TopicoFormMapper
 import com.kings.cursospring.mapper.TopicoViewMapper
 import com.kings.cursospring.repository.TopicoRepository
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -20,6 +22,7 @@ class TopicoService(
 ) {
     private val notFoundMessage: String = "Topico nao encontrado!"
 
+    @Cacheable("topicos", key = "#root.method.name")
     fun listar(nomeCurso: String?, paginacao: Pageable): Page<TopicoView> {
         val topicos = if (nomeCurso == null) repository.findAll(paginacao) else repository.findByCursoNome(nomeCurso, paginacao)
         return topicos.map { t -> topicoViewMapper.map(t) }
@@ -30,12 +33,14 @@ class TopicoService(
         return topicoViewMapper.map(topico)
     }
 
+    @CacheEvict(value = ["topicos"], allEntries = true) // LIMPA TODOS OS REGISTROS DO CACHE TOPICOS
     fun cadastrar(form: NovoTopicoForm): TopicoView {
         val topico = topicoFormMapper.map(form)
         repository.save(topico)
         return topicoViewMapper.map(topico)
     }
 
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun atualizar(form: AtualizacaoTopicoForm): TopicoView {
         val topico = repository.findById(form.id).orElseThrow { NotFoundException(notFoundMessage) }
         topico.titulo = form.titulo
@@ -44,6 +49,7 @@ class TopicoService(
         return topicoViewMapper.map(topico)
     }
 
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun deletar(id: Long) {
         repository.deleteById(id)
     }

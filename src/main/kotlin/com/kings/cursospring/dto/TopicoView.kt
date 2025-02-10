@@ -3,6 +3,7 @@ package com.kings.cursospring.dto
 import com.kings.cursospring.model.Curso
 import com.kings.cursospring.model.StatusTopico
 import com.kings.cursospring.model.Usuario
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -15,5 +16,4 @@ data class TopicoView(
     val usuario: Usuario,
     val curso: Curso,
     val dataAlteracao: LocalDate?
-
-)
+) : Serializable

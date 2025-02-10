@@ -1,6 +1,7 @@
 package com.kings.cursospring.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -15,4 +16,4 @@ data class Usuario(
     @JoinColumn(name = "USUARIO_ROLE")
     @ManyToMany(fetch = FetchType.EAGER)
     val role: List<Role>
-)
+) : Serializable
