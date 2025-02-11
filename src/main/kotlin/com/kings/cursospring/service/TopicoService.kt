@@ -6,6 +6,7 @@ import com.kings.cursospring.dto.TopicoView
 import com.kings.cursospring.exception.NotFoundException
 import com.kings.cursospring.mapper.TopicoFormMapper
 import com.kings.cursospring.mapper.TopicoViewMapper
+import com.kings.cursospring.model.Topico
 import com.kings.cursospring.repository.TopicoRepository
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
@@ -29,7 +30,7 @@ class TopicoService(
     }
 
     fun buscarPorId(id: Long): TopicoView {
-        val topico = repository.findById(id).orElseThrow { NotFoundException(notFoundMessage) }
+        val topico = repository.findById(id).orElseThrow{NotFoundException(notFoundMessage)}
         return topicoViewMapper.map(topico)
     }
 
