@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service
 @Service
 class RespostaService(
     private val respostaRepositoru: RespostaRepository,
-    private val respostaFormMapper: RespostaFormMapper
+    private val respostaFormMapper: RespostaFormMapper,
+    private val emailService: EmailService
 ) {
     fun salvar(form: NovoRespostaForm) {
         val resposta = respostaFormMapper.map(form)
         respostaRepositoru.save(resposta)
+        val email = resposta.topico.usuario.email
+        emailService.notificar(email)
     }
 }
