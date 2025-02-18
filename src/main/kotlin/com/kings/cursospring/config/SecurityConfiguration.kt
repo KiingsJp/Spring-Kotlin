@@ -25,6 +25,7 @@ class SecurityConfiguration(
         antMatchers(HttpMethod.POST, "/**")?.permitAll()?.
         antMatchers(HttpMethod.GET, "/swagger-ui/*")?.permitAll()?.
         antMatchers(HttpMethod.GET, "/v3/api-docs/**")?.permitAll()?.
+        antMatchers(HttpMethod.GET, "/relatorios")?.hasAuthority("ADMIN")?.
         anyRequest()?.
         authenticated()?.
         and()
