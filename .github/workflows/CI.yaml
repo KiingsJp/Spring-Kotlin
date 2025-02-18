@@ -10,6 +10,27 @@ jobs:
     name: Testes automatizados
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: cursospring
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --host=localhost --user=root --password=root"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+
     steps:
       - uses: actions/checkout@v1
 
@@ -25,5 +46,22 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Esperar o MySQL subir
+        run: |
+          echo "Aguardando MySQL estar pronto..."
+          for i in {1..30}; do
+            nc -z localhost 3306 && echo "MySQL está pronto!" && exit 0
+            echo "MySQL ainda não está pronto... tentando novamente em 2s"
+            sleep 2
+          done
+          echo "MySQL não respondeu a tempo" && exit 1
+
       - name: Executar testes
         run: mvn -B test
+        env:
+          MYSQL_HOST: localhost
+          MYSQL_DATABASE: cursospring
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
