@@ -12,11 +12,11 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql:9.1.0
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: cursospring
-          MYSQL_USER: root
+#          MYSQL_USER: root
           MYSQL_PASSWORD: root
         ports:
           - 3306:3306
